@@ -9,6 +9,9 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import DrawerInnerView from "components/Navigation/DrawerInnerView"
+import { titleForUrl } from 'models/urls';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 const drawerWidth = 240;
 const styles = (theme: Theme) => ({
@@ -39,14 +42,14 @@ const styles = (theme: Theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 6,
   },
   grow: {
     flex: 1,
   },
 });
 
-export interface MyAppBarProps extends WithStyles<typeof styles> {
+export type MyAppBarProps = WithStyles<typeof styles> & {
   theme: Theme,
 }
 export interface State {
@@ -62,11 +65,16 @@ class MyAppBar extends React.Component<MyAppBarProps, State> {
     this.setState(state => ({ isMobileOpen: !state.isMobileOpen }));
   };
 
+  componentDidUpdate(prevProps: MyAppBarProps) {
+    console.log('hello');
+    
+  }
+
   render() {
     const { classes, theme } = this.props;
-    const drawer = (
-      <div></div>
-    );
+    const drawerInnerView = <DrawerInnerView
+    />;
+      
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -85,7 +93,7 @@ class MyAppBar extends React.Component<MyAppBarProps, State> {
               color="inherit"
               className={classes.grow}
             >
-              Blockredit
+              { titleForUrl[window.location.pathname] }
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
@@ -102,7 +110,7 @@ class MyAppBar extends React.Component<MyAppBarProps, State> {
                 paper: classes.drawerPaper,
               }}
             >
-              {drawer}
+              {drawerInnerView}
             </Drawer>
           </Hidden>
           <Hidden xsDown implementation="css">
@@ -113,10 +121,13 @@ class MyAppBar extends React.Component<MyAppBarProps, State> {
               variant="permanent"
               open
             >
-              {drawer}
+              {drawerInnerView}
             </Drawer>
           </Hidden>
         </nav>
+        <div className={classes.content}>
+          {this.props.children}
+        </div>
       </div>
     );
   }

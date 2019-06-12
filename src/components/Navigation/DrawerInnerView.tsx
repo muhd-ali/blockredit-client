@@ -30,6 +30,7 @@ class DrawerInnerView extends React.Component<DrawerInnerViewProps, State> {
                   gutterBottom
                   variant='h6'
                   component="h2"
+                  color='textSecondary'
                 >
                   BlockRedit
                 </Typography>
@@ -47,7 +48,7 @@ class DrawerInnerView extends React.Component<DrawerInnerViewProps, State> {
               <ListItemText primary={'Homepage'} />
             </ListItem>
           </RouterLink>
-          <RouterLink to="/quickcash">
+          <RouterLink to="/quickcredit">
             <ListItem button key={'Quick Cash'}>
               <ListItemIcon>
                 <ImportExport />

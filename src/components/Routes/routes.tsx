@@ -7,7 +7,7 @@ import QuickCashPage from 'components/QuickCashPage/Main';
 function Routes() {
     return <Switch>
         <Route exact={true} path='/' component={HomePage} />
-        <Route exact={true} path='/quickcash' component={QuickCashPage} />
+        <Route exact={true} path='/quickcredit' component={QuickCashPage} />
         <Route path='*' component={NotFoundPage} />
     </Switch>;
 }

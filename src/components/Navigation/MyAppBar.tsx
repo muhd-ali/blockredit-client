@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerInnerView from "components/Navigation/DrawerInnerView"
 import { titleForUrl } from 'models/urls';
-import { withRouter, RouteComponentProps } from 'react-router';
+import { withRouter, RouteComponentProps, StaticContext } from 'react-router';
 
 const drawerWidth = 240;
 const styles = (theme: Theme) => ({
@@ -49,7 +49,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export type MyAppBarProps = WithStyles<typeof styles> & {
+export type MyAppBarProps = WithStyles<typeof styles> & RouteComponentProps<any, StaticContext, any> & {
   theme: Theme,
 }
 export interface State {
@@ -60,15 +60,10 @@ class MyAppBar extends React.Component<MyAppBarProps, State> {
   state = {
     isMobileOpen: false,
   };
-
+  
   handleDrawerToggle = () => {
     this.setState(state => ({ isMobileOpen: !state.isMobileOpen }));
   };
-
-  componentDidUpdate(prevProps: MyAppBarProps) {
-    console.log('hello');
-    
-  }
 
   render() {
     const { classes, theme } = this.props;
@@ -133,4 +128,5 @@ class MyAppBar extends React.Component<MyAppBarProps, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(MyAppBar);
+const RoutedAppBar = withRouter(MyAppBar)
+export default withStyles(styles, {withTheme: true})(RoutedAppBar);
